@@ -1,0 +1,29 @@
+name: Hosted runner admission — source-free org diagnostic
+on:
+  push:
+    branches:
+      - ci/hosted-runner-admission-20261026
+permissions: {}
+jobs:
+  ubuntu-latest-admission:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Verify hosted runner assignment without checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${RUNNER_OS}" = "Linux"
+          test -n "${RUNNER_NAME}"
+          echo "FIDUCIA_RUNNER_LATEST_ASSIGNED_PASS"
+  ubuntu-2404-admission:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Verify Ubuntu 24.04 runner assignment without checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${RUNNER_OS}" = "Linux"
+          test -n "${RUNNER_NAME}"
+          echo "FIDUCIA_RUNNER_2404_ASSIGNED_PASS"
